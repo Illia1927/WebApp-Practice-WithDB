@@ -23,14 +23,14 @@ public class UserDaoImpl implements UserDao {
             statement.setString(2, user.getLogin());
             statement.setString(3, user.getEmail());
             statement.setString(4, user.getPassword());
-            statement.executeUpdate();
+            statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void updateUser(User user) {
+    public void updateUser(Long id, User user) {
         String UPDATE_USER =
                 "UPDATE users SET name=?, login=?, email=?, password=? WHERE users_id=? ";
         try {
@@ -39,7 +39,7 @@ public class UserDaoImpl implements UserDao {
             statement.setString(2, user.getLogin());
             statement.setString(3, user.getEmail());
             statement.setString(4, user.getPassword());
-            statement.setLong(5, user.getUsers_id());
+            statement.setLong(5, id);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -48,7 +48,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void deleteUserById(Long id) {
-        String DELETE_USER_BY_ID = "DELETE FROM users WHERE users_id=?;";
+        String DELETE_USER_BY_ID = "DELETE FROM users WHERE users_id=?";
         try {
             PreparedStatement statement = connection.prepareStatement(DELETE_USER_BY_ID);
             statement.setLong(1, id);

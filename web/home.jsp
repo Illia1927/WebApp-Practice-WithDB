@@ -34,8 +34,20 @@
       <input type="submit" value=" Registration ">
     </form>
   </a>
-</div>
+  <a href="${pageContext.request.contextPath}/getAll">
+    <form method="POST"
+          action="${pageContext.request.contextPath}/getAll">
+      <input type="submit" value=" get all users ">
+    </form>
+  </a>
 
+<a href="${pageContext.request.contextPath}/editUser">
+  <form method="POST"
+        action="${pageContext.request.contextPath}/editUser">
+    <input type="submit" value=" edit user ">
+  </form>
+</a>
+</div>
 <script  src="js/index.js"></script>
 </body>
 </html>

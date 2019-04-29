@@ -27,7 +27,12 @@
         <input type="submit" value=" Go to login ">
     </form>
 </a>
-
+    <a href="${pageContext.request.contextPath}/home">
+        <form method="GET"
+              action="${pageContext.request.contextPath}/home">
+            <button type="submit" class="btn btn-primary btn-block btn-large">Go back home</button>
+        </form>
+    </a>
 </div>
 <script src="js/index.js"></script>
 </body>
