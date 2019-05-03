@@ -31,9 +31,9 @@
         <input name="password" type="password" class="form-control" placeholder="password"/>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     </form>
-    <a href="${pageContext.request.contextPath}/page">
+    <a href="${pageContext.request.contextPath}/admin">
         <form method="GET"
-              action="${pageContext.request.contextPath}/page">
+              action="${pageContext.request.contextPath}/admin">
             <input type="submit" value=" Let me in ">
         </form>
     </a>

@@ -27,23 +27,26 @@
 <p>
 <div>
     <br>
-
-    <form method="POST">
+<form method="post">
     <table align="center" border="2">
-        <a href="addUser.jsp">Add User</a>
-        <a href="updateUser.jsp">Update User</a>
+
+        <tr>
+            <td><a href="addUser.jsp">Add User</a></td>
+        </tr>
         <c:forEach items="${users}" var="user">
             <tr>
-                <td><c:out value="${user.users_id}" /></td>
-                <td><c:out value="${user.name}" /></td>
-                <td><c:out value="${user.login}" /></td>
-                <td><c:out value="${user.password}" /></td>
-                <td><c:out value="${user.email}" /></td>
-                <td><a href="/deleteUser?users_id=${user.users_id}">Delete user</a></td>
+                <td>${user.getUserId()}</td>
+                <td>${user.getName()}</td>
+                <td>${user.getLogin()}</td>
+                <td>${user.getEmail()}</td>
+                <td>${user.getPassword()}</td>
+                <td>${user.getRole()}</td>
+                <td><a href="deleteUser?UserId()=${user.getUserId()}">Delete user</a></td>
+                <td><a href="updateUser">Update User</a></td>
             </tr>
         </c:forEach>
     </table>
-    </form>
+</form>
 </div>
 <br>
 <br>

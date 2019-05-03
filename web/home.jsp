@@ -34,19 +34,11 @@
       <input type="submit" value=" Registration ">
     </form>
   </a>
-  <a href="${pageContext.request.contextPath}/getAll">
-    <form method="POST"
-          action="${pageContext.request.contextPath}/getAll">
-      <input type="submit" value=" get all users ">
-    </form>
+  <p style="color: azure"><b>This is a href on instagram of author:</b></p>
+  <a href="https://www.instagram.com/moroz_ilya_20/">
+    <img src="instagram_PNG12.png" width="50"
+         height="50" alt="Just press">
   </a>
-
-<a href="${pageContext.request.contextPath}/editUser">
-  <form method="POST"
-        action="${pageContext.request.contextPath}/editUser">
-    <input type="submit" value=" edit user ">
-  </form>
-</a>
 </div>
 <script  src="js/index.js"></script>
 </body>

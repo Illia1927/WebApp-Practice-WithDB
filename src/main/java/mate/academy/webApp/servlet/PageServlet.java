@@ -1,5 +1,7 @@
 package mate.academy.webApp.servlet;
 
+import org.apache.log4j.Logger;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,8 +11,10 @@ import java.io.IOException;
 
 @WebServlet("/page")
 public class PageServlet extends HttpServlet {
+    private static final Logger logger = Logger.getLogger(PageServlet.class);
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        logger.debug("Started show servlet 'page'");
         req.getRequestDispatcher("page.jsp").forward(req, resp);
     }
 

@@ -8,6 +8,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <link type="text/css" rel="stylesheet" media="screen"
+          href="${pageContext.request.contextPath}/resources/styles/style.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
     <title>addUser</title>
 </head>
 <body>
@@ -22,9 +26,12 @@
 
         <input type="password" name="password" placeholder="password" required="required"/>
 
+        <input type="text" name="role" placeholder="role" required="required"/>
+
         <button type="submit" class="btn btn-primary btn-block btn-large">add user</button>
     </form>
 
 </div>
+<script src="js/index.js"></script>
 </body>
 </html>

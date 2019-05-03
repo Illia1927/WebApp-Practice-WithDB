@@ -21,6 +21,13 @@
     </style>
 </head>
 <body>
+<div>
+    <a href="${pageContext.request.contextPath}/home">
+        <form method="GET"
+              action="${pageContext.request.contextPath}/home">
+            <button type="submit" class="btn btn-primary btn-block btn-large">Go back home</button>
+        </form>
+    </a>
 <p align="center" style="color: azure"><em><b>This is a href on instagram of author:</b></em>
     <br>
     <br>

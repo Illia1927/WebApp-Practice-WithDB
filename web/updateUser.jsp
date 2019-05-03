@@ -13,8 +13,8 @@
 </head>
 <body>
 <div>
-<form action="/updateUser" method="POST">
-    Id<input type="hidden" name="users_id" value="${users_id}"> <br>
+<form action="/webjdbc_war_exploded/updateUser" method="POST">
+    Id<input name="users_id" value="${users_id}"> <br>
     Name <input type="text" name="name"> <br>
     login <input type="text" name="login"> <br>
     Email <input type="text" name="email"> <br>

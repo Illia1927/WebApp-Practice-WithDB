@@ -3,6 +3,7 @@ package mate.academy.webApp.servlet;
 import mate.academy.webApp.dao.UserDao;
 import mate.academy.webApp.dao.UserDaoImpl;
 import mate.academy.webApp.model.User;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,26 +17,34 @@ import java.util.regex.Pattern;
 
 @WebServlet(value = "/registration")
 public class RegistrationServlet extends HttpServlet {
+    private static final Logger logger = Logger.getLogger(RegistrationServlet.class);
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        logger.debug("Started registration");
         req.getRequestDispatcher("registration.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserDao userDao = new UserDaoImpl();
+        Long id = Long.valueOf(req.getParameter("userId"));
         String userName = req.getParameter("name");
         String login = req.getParameter("login");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        User user = new User(userName, login, email, password);
+        logger.debug("User " + userName + " entered date : " + login
+                + ", " + email + ", " + password + ".");
+        User user = new User(userName, login, email, password, "USER");
         if (userDao.getUserByName(userName).equals(Optional.empty())) {
+            logger.debug("User is unique, password such as entered");
             if (checkEmail(email)) {
+                logger.debug("Mail is ok");
                 userDao.addUser(user);
-                System.out.println(user);
+                logger.debug("User : " + user);
                 req.setAttribute("name", req.getParameter("name"));
             }
         }
+        logger.debug("Moved to 'hello page'");
         req.getRequestDispatcher("nihao.jsp").forward(req, resp);
     }
 

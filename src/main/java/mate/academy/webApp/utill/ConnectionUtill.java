@@ -1,10 +1,13 @@
 package mate.academy.webApp.utill;
 
+import org.apache.log4j.Logger;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionUtill {
+    private static final Logger logger = Logger.getLogger(ConnectionUtill.class);
     private static final String URL = "jdbc:mysql://localhost:3306/servlet?serverTimezone=UTC";
     private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String USER = "root";
@@ -15,14 +18,12 @@ public class ConnectionUtill {
         try {
             Class.forName(JDBC_DRIVER);
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("Connection successfully");
+            logger.info("Connection successfully");
         } catch (ClassNotFoundException e) {
-            System.out.println("JDBC Driver was not loaded : ");
-            e.printStackTrace();
+            logger.error("JDBC Driver was not loaded :", e);
             System.exit(1);
         } catch (SQLException e) {
-            System.out.println("Connection to DB was not established: ");
-            e.printStackTrace();
+            logger.error("Connection to DB was not established: ", e);
             System.exit(1);
         }
     }
