@@ -15,7 +15,7 @@ import java.io.IOException;
 @WebServlet(value = "/updateUser")
 public class UpdateUserServlet extends HttpServlet {
     private static final Logger logger = Logger.getLogger(UpdateUserServlet.class);
-    UserDao userDao = new UserDaoImpl();
+    private static final UserDao userDao = new UserDaoImpl();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.debug("Started update user data");

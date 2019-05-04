@@ -14,7 +14,6 @@ public class AdminServlet extends HttpServlet {
     private static final Logger logger = Logger.getLogger(AdminServlet.class);
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         req.getRequestDispatcher("adminPage.jsp").forward(req, resp);
     }
 

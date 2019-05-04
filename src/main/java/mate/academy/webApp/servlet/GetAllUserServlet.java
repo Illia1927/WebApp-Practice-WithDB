@@ -16,7 +16,7 @@ import java.util.List;
 @WebServlet("/getAll")
 public class GetAllUserServlet extends HttpServlet {
     private static final Logger logger = Logger.getLogger(GetAllUserServlet.class);
-    UserDao userDao = new UserDaoImpl();
+    private static final UserDao userDao = new UserDaoImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

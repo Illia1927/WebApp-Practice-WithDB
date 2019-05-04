@@ -17,6 +17,7 @@ import java.util.regex.Pattern;
 
 @WebServlet(value = "/registration")
 public class RegistrationServlet extends HttpServlet {
+    private static final UserDao userDao = new UserDaoImpl();
     private static final Logger logger = Logger.getLogger(RegistrationServlet.class);
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -26,7 +27,6 @@ public class RegistrationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserDao userDao = new UserDaoImpl();
         Long id = Long.valueOf(req.getParameter("userId"));
         String userName = req.getParameter("name");
         String login = req.getParameter("login");

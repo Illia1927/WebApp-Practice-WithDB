@@ -14,8 +14,7 @@ import java.io.IOException;
 @WebServlet(value = "/deleteUser")
 public class DeleteUserServlet extends HttpServlet {
     private static final Logger logger = Logger.getLogger(DeleteUserServlet.class);
-    UserDao userDao = new UserDaoImpl();
-
+    private static final UserDao userDao = new UserDaoImpl();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long id = Long.parseLong(req.getParameter("users_id"));
