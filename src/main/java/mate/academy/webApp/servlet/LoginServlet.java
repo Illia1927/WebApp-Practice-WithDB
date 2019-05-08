@@ -1,7 +1,7 @@
 package mate.academy.webApp.servlet;
 
 import mate.academy.webApp.dao.UserDao;
-import mate.academy.webApp.dao.UserDaoImpl;
+import mate.academy.webApp.dao.impl.UserDaoImpl;
 import mate.academy.webApp.model.User;
 import org.apache.log4j.Logger;
 
@@ -36,17 +36,20 @@ public class LoginServlet extends HttpServlet {
         if (userFromDb.isPresent()) {
             User user = userFromDb.get();
             if (user.getPassword().equals(password) & user.getRole().equals(User.ROLE.USER)) {
+                System.out.println(user);
+                req.getSession().setAttribute("user", user);
                 req.setAttribute("name", name);
                 logger.debug("User " + user.getName() + " logged in system");
                 try {
-                    req.getRequestDispatcher("userPage.jsp").forward(req, resp);
+                    req.getRequestDispatcher("nihao.jsp").forward(req, resp);
                 } catch (ServletException | IOException e) {
-                    logger.error("Can`t forward to userPage.jsp", e);
+                    logger.error("Can`t forward to allGoodsPage.jsp", e);
                 }
             } else {
+                req.getSession().setAttribute("user", user);
                 logger.debug("Admin " + user.getName() + " logged in system");
                 try {
-                    req.getRequestDispatcher("adminPage.jsp").forward(req, resp);
+                    req.getRequestDispatcher("nihao.jsp").forward(req, resp);
                 } catch (ServletException | IOException e) {
                     logger.error("Can`t forward to adminPage.jsp", e);
                 }

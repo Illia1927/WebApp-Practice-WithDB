@@ -1,7 +1,7 @@
 package mate.academy.webApp.servlet;
 
 import mate.academy.webApp.dao.UserDao;
-import mate.academy.webApp.dao.UserDaoImpl;
+import mate.academy.webApp.dao.impl.UserDaoImpl;
 import mate.academy.webApp.model.User;
 import org.apache.log4j.Logger;
 
@@ -27,7 +27,6 @@ public class RegistrationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long id = Long.valueOf(req.getParameter("userId"));
         String userName = req.getParameter("name");
         String login = req.getParameter("login");
         String email = req.getParameter("email");
@@ -35,6 +34,9 @@ public class RegistrationServlet extends HttpServlet {
         logger.debug("User " + userName + " entered date : " + login
                 + ", " + email + ", " + password + ".");
         User user = new User(userName, login, email, password, "USER");
+        Long id = userDao.addUser(user);
+        user.setUserId(id);
+        req.getSession().setAttribute("user", user);
         if (userDao.getUserByName(userName).equals(Optional.empty())) {
             logger.debug("User is unique, password such as entered");
             if (checkEmail(email)) {

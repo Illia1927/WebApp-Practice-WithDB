@@ -26,6 +26,12 @@
             <input type="submit" value=" Work with users ">
         </form>
     </a>
+    <a href="${pageContext.request.contextPath}/nihao.jsp">
+        <form method="POST"
+              action="${pageContext.request.contextPath}/nihao.jsp">
+            <input type="submit" value=" Hello ">
+        </form>
+    </a>
 </div>
 <script src="js/index.js"></script>
 </body>

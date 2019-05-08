@@ -27,6 +27,12 @@
         <input type="submit" value=" Go to login ">
     </form>
 </a>
+    <a href="${pageContext.request.contextPath}/goods">
+        <form method="GET"
+              action="${pageContext.request.contextPath}/goods">
+            <input type="submit" value=" Goods page ">
+        </form>
+    </a>
     <a href="${pageContext.request.contextPath}/home">
         <form method="GET"
               action="${pageContext.request.contextPath}/home">

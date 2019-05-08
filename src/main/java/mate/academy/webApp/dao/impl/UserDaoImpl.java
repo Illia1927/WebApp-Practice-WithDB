@@ -1,5 +1,6 @@
-package mate.academy.webApp.dao;
+package mate.academy.webApp.dao.impl;
 
+import mate.academy.webApp.dao.UserDao;
 import mate.academy.webApp.model.User;
 import mate.academy.webApp.utill.ConnectionUtill;
 import org.apache.log4j.Logger;
@@ -16,20 +17,25 @@ public class UserDaoImpl implements UserDao {
     private static final Connection connection = ConnectionUtill.getConnection();
     private static final Logger logger = Logger.getLogger(UserDaoImpl.class);
     @Override
-    public void addUser(User user) {
+    public Long addUser(User user) {
         String ADD_USER = "INSERT INTO users(name, login, email, password, role) VALUE (?, ?, ?, ?, ?) ";
         try {
-            PreparedStatement statement = connection.prepareStatement(ADD_USER);
+            PreparedStatement statement = connection.prepareStatement(ADD_USER, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, user.getName());
             statement.setString(2, user.getLogin());
             statement.setString(3, user.getEmail());
             statement.setString(4, user.getPassword());
             statement.setInt(5, user.getRoleIndex());
             statement.execute();
+            ResultSet resultSet = statement.getGeneratedKeys();
+            if (resultSet.next()) {
+                return resultSet.getLong(1);
+            }
             logger.info("insert user is done");
         } catch (SQLException e) {
             logger.error("check your sql query", e);
         }
+        return -1L;
     }
 
     @Override

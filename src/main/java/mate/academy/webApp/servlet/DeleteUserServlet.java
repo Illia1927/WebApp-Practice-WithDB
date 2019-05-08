@@ -1,7 +1,7 @@
 package mate.academy.webApp.servlet;
 
 import mate.academy.webApp.dao.UserDao;
-import mate.academy.webApp.dao.UserDaoImpl;
+import mate.academy.webApp.dao.impl.UserDaoImpl;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;

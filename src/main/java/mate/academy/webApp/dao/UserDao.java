@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 public interface UserDao {
-    void addUser(User user);
+    Long addUser(User user);
 
     void updateUser(Long id, User user);
 

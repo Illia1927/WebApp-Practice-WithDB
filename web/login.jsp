@@ -26,17 +26,17 @@
     <form method="POST"
           action="${pageContext.request.contextPath}/login">
         <span class="fontawesome-user"></span>
-        <input name="login" type="text" class="form-control" placeholder="login"/>
+        <input name="name" type="text" class="form-control" placeholder="name"/>
         <span class="fontawesome-lock"></span>
         <input name="password" type="password" class="form-control" placeholder="password"/>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        <a href="${pageContext.request.contextPath}/nihao.jsp">
+            <form method="GET"
+                  action="${pageContext.request.contextPath}/nihao.jsp">
+                <input type="submit" value=" Let me in ">
+            </form>
+        </a>
     </form>
-    <a href="${pageContext.request.contextPath}/admin">
-        <form method="GET"
-              action="${pageContext.request.contextPath}/admin">
-            <input type="submit" value=" Let me in ">
-        </form>
-    </a>
     <a href="${pageContext.request.contextPath}/registration">
         <form method="GET"
               action="${pageContext.request.contextPath}/registration">
