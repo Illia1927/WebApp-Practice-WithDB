@@ -17,7 +17,7 @@
 <form method="POST">
     <input hidden type="text" name="goodId" value="<c:out value="${goodId}"/>">
     <input type="password" title="сode" name="code"/>
-    <input type="submit"/>
+    <input type="submit" value="Send"/>
 </form>
 </body>
 </html>

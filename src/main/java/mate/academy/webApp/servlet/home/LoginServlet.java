@@ -1,10 +1,9 @@
-package mate.academy.webApp.servlet;
+package mate.academy.webApp.servlet.home;
 
 import mate.academy.webApp.dao.UserDao;
 import mate.academy.webApp.dao.impl.UserDaoImpl;
 import mate.academy.webApp.model.User;
 import mate.academy.webApp.utill.PasswordEncoder;
-import mate.academy.webApp.utill.RandomHelper;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -22,7 +21,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.debug("User started log in system");
-        req.getRequestDispatcher("login.jsp").forward(req, resp);
+        req.getRequestDispatcher("user/login.jsp").forward(req, resp);
     }
 
     @Override
@@ -33,7 +32,7 @@ public class LoginServlet extends HttpServlet {
     private static void checkUser(HttpServletRequest req, HttpServletResponse resp) {
         String name = req.getParameter("name");
         String password = req.getParameter("password");
-        logger.debug("User entered the user name : " + name + ", and pass : " + password + "!");
+        logger.debug("User entered the user name : " + name + ", and pass : some pass!");
         Optional<User> userFromDb = userDao.getUserByName(name);
         if (userFromDb.isPresent()) {
             User user = userFromDb.get();
@@ -45,7 +44,7 @@ public class LoginServlet extends HttpServlet {
                 req.setAttribute("name", name);
                 logger.debug("User " + user.getName() + " logged in system");
                 try {
-                    req.getRequestDispatcher("helloPage.jsp").forward(req, resp);
+                    req.getRequestDispatcher("user/helloPage.jsp").forward(req, resp);
                 } catch (ServletException | IOException e) {
                     logger.error("Can`t forward to allGoodsPage.jsp", e);
                 }

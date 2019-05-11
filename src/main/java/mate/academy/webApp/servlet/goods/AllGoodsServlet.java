@@ -1,6 +1,7 @@
-package mate.academy.webApp.servlet;
+package mate.academy.webApp.servlet.goods;
 
-import org.apache.log4j.Logger;
+import mate.academy.webApp.dao.GoodDao;
+import mate.academy.webApp.dao.impl.GoodDaoImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,13 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(value = "/admin")
-public class AdminServlet extends HttpServlet {
-    private static final Logger logger = Logger.getLogger(AdminServlet.class);
+@WebServlet(value = "/goods")
+public class AllGoodsServlet extends HttpServlet {
+    private static final GoodDao goodDao = new GoodDaoImpl();
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getAttribute("name");
-        req.getRequestDispatcher("admin/adminPage.jsp").forward(req, resp);
+        req.setAttribute("goods", goodDao.getAllGood());
+        req.getRequestDispatcher("CRUD/goodsPage/allGoodsPage.jsp").forward(req, resp);
     }
 
     @Override

@@ -36,7 +36,7 @@
   </a>
   <p style="color: azure"><b>This is a href on instagram of author:</b></p>
   <a href="https://www.instagram.com/moroz_ilya_20/">
-    <img src="instagram_PNG12.png" width="50"
+    <img src="user/instagram_PNG12.png" width="50"
          height="50" alt="Just press">
   </a>
 </div>

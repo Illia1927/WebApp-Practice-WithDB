@@ -13,9 +13,9 @@
 <body>
 <h1>Payment successfully completed</h1>
 <div>
-<a href="${pageContext.request.contextPath}/helloPage.jsp">
+<a href="${pageContext.request.contextPath}/user/helloPage.jsp">
     <form method="POST"
-          action="${pageContext.request.contextPath}/helloPage.jsp">
+          action="${pageContext.request.contextPath}/user/helloPage.jsp">
         <input type="submit" value=" back to home page ">
     </form>
 </a>

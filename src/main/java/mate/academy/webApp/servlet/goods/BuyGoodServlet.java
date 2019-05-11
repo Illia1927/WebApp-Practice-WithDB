@@ -1,4 +1,4 @@
-package mate.academy.webApp.servlet;
+package mate.academy.webApp.servlet.goods;
 
 import mate.academy.webApp.dao.CodeDao;
 import mate.academy.webApp.dao.impl.CodeDaoImpl;
@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Optional;
 
 @WebServlet(value = "/buy")
 public class BuyGoodServlet extends HttpServlet {
@@ -23,8 +24,11 @@ public class BuyGoodServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String codeValue = req.getParameter("code");
-        if (codeDao.getCodeByValue(codeValue).isPresent()) {
+        Optional<Code> optionalCode = codeDao.getCodeByValue(codeValue);
+        if (optionalCode.isPresent()) {
+            Code code = optionalCode.get();
             req.getRequestDispatcher("buyGoodConfirmation/payConfirm.jsp").forward(req, resp);
+            codeDao.deleteCodeById(code.getCodeId());
             logger.info("payment successfully");
         } else {
             req.getRequestDispatcher("buyGoodConfirmation/refusalPayConfirm.jsp").forward(req, resp);

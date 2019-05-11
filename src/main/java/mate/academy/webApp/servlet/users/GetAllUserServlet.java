@@ -1,4 +1,4 @@
-package mate.academy.webApp.servlet;
+package mate.academy.webApp.servlet.users;
 
 import mate.academy.webApp.dao.UserDao;
 import mate.academy.webApp.dao.impl.UserDaoImpl;
@@ -21,7 +21,7 @@ public class GetAllUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.debug("Started show servlet 'get all'");
-        req.getRequestDispatcher("CRUD/user/getAllUsers.jsp").forward(req, resp);
+        req.getRequestDispatcher("CRUD/usersPage/getAllUsers.jsp").forward(req, resp);
     }
 
     @Override
@@ -29,6 +29,6 @@ public class GetAllUserServlet extends HttpServlet {
         List<User> users = userDao.getAllUsers();
         logger.info("Admin in get all page");
         req.setAttribute("users", users);
-        req.getRequestDispatcher("CRUD/user/getAllUsers.jsp").forward(req, resp);
+        req.getRequestDispatcher("CRUD/usersPage/getAllUsers.jsp").forward(req, resp);
     }
 }

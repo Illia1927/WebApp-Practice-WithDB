@@ -1,4 +1,4 @@
-package mate.academy.webApp.servlet;
+package mate.academy.webApp.servlet.home;
 
 import org.apache.log4j.Logger;
 
@@ -9,13 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/page")
-public class PageServlet extends HttpServlet {
-    private static final Logger logger = Logger.getLogger(PageServlet.class);
+@WebServlet("/makerPage")
+public class MakerPageServlet extends HttpServlet {
+    private static final Logger logger = Logger.getLogger(MakerPageServlet.class);
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.debug("Started show servlet 'page'");
-        req.getRequestDispatcher("page.jsp").forward(req, resp);
+        req.getRequestDispatcher("user/makerPage.jsp").forward(req, resp);
     }
 
     @Override

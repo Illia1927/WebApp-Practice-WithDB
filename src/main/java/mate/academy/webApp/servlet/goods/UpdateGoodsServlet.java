@@ -1,4 +1,4 @@
-package mate.academy.webApp.servlet;
+package mate.academy.webApp.servlet.goods;
 
 import mate.academy.webApp.dao.GoodDao;
 import mate.academy.webApp.dao.impl.GoodDaoImpl;
@@ -12,21 +12,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(value = "/getAllGood")
-public class AddGoodServlet extends HttpServlet {
+@WebServlet(value = "/updateGood")
+public class UpdateGoodsServlet extends HttpServlet {
+    private static final Logger logger = Logger.getLogger(UpdateGoodsServlet.class);
     private static final GoodDao goodDao = new GoodDaoImpl();
-    private static final Logger logger = Logger.getLogger(AddGoodServlet.class);
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        logger.info("Admin in update good page");
+        Long id = Long.parseLong(req.getParameter("goodId"));
         String nameOfGood = req.getParameter("nameOfGood");
         String description = req.getParameter("description");
         Double price = Double.valueOf(req.getParameter("price"));
-        logger.debug("Good : " + nameOfGood + ", " + description
+        logger.debug("New good : " + nameOfGood + ", " + description
                 + ", " + price + ".");
-        Good good = new Good(nameOfGood, description, price);
-        goodDao.addGood(good);
+        goodDao.updateGood(id, new Good(nameOfGood, description, price));
         req.getRequestDispatcher("admin/adminPage.jsp").forward(req, resp);
     }
-
 }

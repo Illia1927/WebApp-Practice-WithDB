@@ -1,8 +1,9 @@
-package mate.academy.webApp.servlet;
+package mate.academy.webApp.servlet.home;
 
 import mate.academy.webApp.dao.UserDao;
 import mate.academy.webApp.dao.impl.UserDaoImpl;
 import mate.academy.webApp.model.User;
+import mate.academy.webApp.utill.PasswordEncoder;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -22,7 +23,7 @@ public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.debug("Started registration");
-        req.getRequestDispatcher("registration.jsp").forward(req, resp);
+        req.getRequestDispatcher("user/registration.jsp").forward(req, resp);
     }
 
     @Override
@@ -31,9 +32,9 @@ public class RegistrationServlet extends HttpServlet {
         String login = req.getParameter("login");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        logger.debug("User " + userName + " entered date : " + login
-                + ", " + email + ", " + password + ".");
         User user = new User(userName, login, email, password, "USER");
+        logger.debug("User " + userName + " entered date : " + login
+                + ", " + email + ", " + PasswordEncoder.getEncodePassword(password, user.getSalt()) + ".");
         Long id = userDao.addUser(user);
         user.setUserId(id);
         req.getSession().setAttribute("user", user);
@@ -47,7 +48,7 @@ public class RegistrationServlet extends HttpServlet {
             }
         }
         logger.debug("Moved to 'hello page'");
-        req.getRequestDispatcher("helloPage.jsp").forward(req, resp);
+        req.getRequestDispatcher("user/helloPage.jsp").forward(req, resp);
     }
 
     private static boolean checkEmail(String email) {

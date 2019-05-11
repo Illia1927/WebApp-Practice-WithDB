@@ -16,9 +16,10 @@
     <title>Title</title>
 </head>
 <body>
-<div>
+<div class="login">
     <br>
-    <p>Hello, dear administrator <%=request.getAttribute("name")%>!</p>
+    <p align="center" style="color: chartreuse">Hello, dear administrator : <c:out value="${sessionScope.user.name}"/>!</p>
+
     <a href="${pageContext.request.contextPath}/getAll">
         <form method="POST"
               action="${pageContext.request.contextPath}/getAll">
@@ -31,9 +32,9 @@
             <input type="submit" value=" Work with good ">
         </form>
     </a>
-    <a href="${pageContext.request.contextPath}/helloPage.jsp">
+    <a href="${pageContext.request.contextPath}/user/helloPage.jsp">
         <form method="POST"
-              action="${pageContext.request.contextPath}/helloPage.jsp">
+              action="${pageContext.request.contextPath}/user/helloPage.jsp">
             <input type="submit" value=" Hello ">
         </form>
     </a>

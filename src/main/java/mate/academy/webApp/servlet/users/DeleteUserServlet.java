@@ -1,4 +1,4 @@
-package mate.academy.webApp.servlet;
+package mate.academy.webApp.servlet.users;
 
 import mate.academy.webApp.dao.UserDao;
 import mate.academy.webApp.dao.impl.UserDaoImpl;
@@ -17,9 +17,9 @@ public class DeleteUserServlet extends HttpServlet {
     private static final UserDao userDao = new UserDaoImpl();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long id = Long.parseLong(req.getParameter("users_id"));
+        Long id = Long.parseLong(req.getParameter("userId"));
         userDao.deleteUserById(id);
         logger.info("Admin in delete page");
-        req.getRequestDispatcher("/home").forward(req, resp);
+        req.getRequestDispatcher("admin/adminPage.jsp").forward(req, resp);
     }
 }
