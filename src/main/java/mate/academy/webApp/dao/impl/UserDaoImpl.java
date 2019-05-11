@@ -3,6 +3,8 @@ package mate.academy.webApp.dao.impl;
 import mate.academy.webApp.dao.UserDao;
 import mate.academy.webApp.model.User;
 import mate.academy.webApp.utill.ConnectionUtill;
+import mate.academy.webApp.utill.PasswordEncoder;
+import mate.academy.webApp.utill.RandomHelper;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
@@ -18,14 +20,15 @@ public class UserDaoImpl implements UserDao {
     private static final Logger logger = Logger.getLogger(UserDaoImpl.class);
     @Override
     public Long addUser(User user) {
-        String ADD_USER = "INSERT INTO users(name, login, email, password, role) VALUE (?, ?, ?, ?, ?) ";
+        String ADD_USER = "INSERT INTO users(name, login, email, password, salt, role) VALUE (?, ?, ?, ?, ?, ?) ";
         try {
             PreparedStatement statement = connection.prepareStatement(ADD_USER, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, user.getName());
             statement.setString(2, user.getLogin());
             statement.setString(3, user.getEmail());
-            statement.setString(4, user.getPassword());
-            statement.setInt(5, user.getRoleIndex());
+            statement.setString(4, PasswordEncoder.getEncodePassword(user.getPassword(), user.getSalt()));
+            statement.setString(5, user.getSalt());
+            statement.setInt(6, user.getRoleIndex());
             statement.execute();
             ResultSet resultSet = statement.getGeneratedKeys();
             if (resultSet.next()) {
@@ -72,7 +75,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Optional<User> getUserByName(String name) {
-        String GET_USER_BY_NAME = "SELECT user_id, name, login, email, password, role_name " +
+        String GET_USER_BY_NAME = "SELECT user_id, name, login, email, password, salt, role_name " +
                 " FROM users INNER JOIN role " +
                 " on users.role = role.role_id WHERE name=?";
         try {
@@ -85,8 +88,9 @@ public class UserDaoImpl implements UserDao {
                 String login = rs.getString("login");
                 String email = rs.getString("email");
                 String password = rs.getString("password");
+                String salt = rs.getString("salt");
                 String role = rs.getString("role_name");
-                return Optional.of(new User(usersId, userName, login, email, password, role));
+                return Optional.of(new User(usersId, userName, login, email, password, salt, role));
             }
             logger.info("get user by name is done");
         } catch (SQLException e) {
@@ -111,8 +115,9 @@ public class UserDaoImpl implements UserDao {
                 String login = resultSet.getString("login");
                 String email = resultSet.getString("email");
                 String password = resultSet.getString("password");
+                String salt = resultSet.getString("salt");
                 String role = resultSet.getString("role_name");
-                temporary = new User(usersId, userName, login, email, password, role);
+                temporary = new User(usersId, userName, login, email, password, salt, role);
                 result.add(temporary);
             }
             logger.info("get all users is done");

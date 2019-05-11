@@ -11,10 +11,10 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Access Denied</h1>
-<a href="${pageContext.request.contextPath}/home">
+<h1 style="color: #670d10">Access Denied</h1>
+<a href="${pageContext.request.contextPath}/helloPage.jsp">
     <form method="GET"
-          action="${pageContext.request.contextPath}/home">
+          action="${pageContext.request.contextPath}/helloPage.jsp">
         <button type="submit" class="btn btn-primary btn-block btn-large">Go back home</button>
     </form>
 </a>

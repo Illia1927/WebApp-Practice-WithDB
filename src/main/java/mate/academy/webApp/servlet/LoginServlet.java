@@ -3,6 +3,8 @@ package mate.academy.webApp.servlet;
 import mate.academy.webApp.dao.UserDao;
 import mate.academy.webApp.dao.impl.UserDaoImpl;
 import mate.academy.webApp.model.User;
+import mate.academy.webApp.utill.PasswordEncoder;
+import mate.academy.webApp.utill.RandomHelper;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -35,30 +37,32 @@ public class LoginServlet extends HttpServlet {
         Optional<User> userFromDb = userDao.getUserByName(name);
         if (userFromDb.isPresent()) {
             User user = userFromDb.get();
-            if (user.getPassword().equals(password) & user.getRole().equals(User.ROLE.USER)) {
+            String salt = user.getSalt();
+            String passwordEncoder = PasswordEncoder.getEncodePassword(password, salt);
+            req.getSession().setAttribute("user", user);
+            if (user.getPassword().equals(passwordEncoder) & user.getRole().equals(User.ROLE.USER)) {
                 System.out.println(user);
-                req.getSession().setAttribute("user", user);
                 req.setAttribute("name", name);
                 logger.debug("User " + user.getName() + " logged in system");
                 try {
-                    req.getRequestDispatcher("nihao.jsp").forward(req, resp);
+                    req.getRequestDispatcher("helloPage.jsp").forward(req, resp);
                 } catch (ServletException | IOException e) {
                     logger.error("Can`t forward to allGoodsPage.jsp", e);
                 }
-            } else {
-                req.getSession().setAttribute("user", user);
+            } else if (user.getPassword().equals(passwordEncoder) & user.getRole().equals(User.ROLE.ADMIN)) {
                 logger.debug("Admin " + user.getName() + " logged in system");
                 try {
-                    req.getRequestDispatcher("nihao.jsp").forward(req, resp);
+                    req.getRequestDispatcher("admin/adminPage.jsp").forward(req, resp);
                 } catch (ServletException | IOException e) {
                     logger.error("Can`t forward to adminPage.jsp", e);
                 }
+            } else {
+                try {
+                    req.getRequestDispatcher("home.jsp").forward(req, resp);
+                } catch (ServletException | IOException e) {
+                    logger.error("Can`t forward to homePage.jsp", e);
+                }
             }
-        }
-        try {
-            req.getRequestDispatcher("home.jsp").forward(req, resp);
-        } catch (ServletException | IOException e) {
-            logger.error("Can`t forward to homePage.jsp", e);
         }
     }
 }

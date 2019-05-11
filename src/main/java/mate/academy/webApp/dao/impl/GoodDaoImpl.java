@@ -18,7 +18,7 @@ public class GoodDaoImpl implements GoodDao {
     private static final Logger logger = Logger.getLogger(GoodDaoImpl.class);
 
     @Override
-    public void addGood(Good good) {
+    public Long addGood(Good good) {
         String ADD_GOOD = "INSERT INTO goods(name_of_good, description, price) VALUE (?, ?, ?) ";
         try {
             PreparedStatement statement = connection.prepareStatement(ADD_GOOD);
@@ -31,6 +31,7 @@ public class GoodDaoImpl implements GoodDao {
         } catch (SQLException e) {
             logger.error("check your sql query", e);
         }
+        return -1L;
     }
 
     @Override

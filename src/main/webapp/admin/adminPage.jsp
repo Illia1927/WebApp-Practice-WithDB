@@ -18,17 +18,22 @@
 <body>
 <div>
     <br>
-    <p>Hello, dear administrator <%=request.getAttribute("name")%>!>!
-    </p>
+    <p>Hello, dear administrator <%=request.getAttribute("name")%>!</p>
     <a href="${pageContext.request.contextPath}/getAll">
         <form method="POST"
               action="${pageContext.request.contextPath}/getAll">
             <input type="submit" value=" Work with users ">
         </form>
     </a>
-    <a href="${pageContext.request.contextPath}/nihao.jsp">
+    <a href="${pageContext.request.contextPath}/goods">
         <form method="POST"
-              action="${pageContext.request.contextPath}/nihao.jsp">
+              action="${pageContext.request.contextPath}/goods">
+            <input type="submit" value=" Work with good ">
+        </form>
+    </a>
+    <a href="${pageContext.request.contextPath}/helloPage.jsp">
+        <form method="POST"
+              action="${pageContext.request.contextPath}/helloPage.jsp">
             <input type="submit" value=" Hello ">
         </form>
     </a>

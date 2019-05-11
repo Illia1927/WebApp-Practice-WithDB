@@ -30,9 +30,9 @@
         <span class="fontawesome-lock"></span>
         <input name="password" type="password" class="form-control" placeholder="password"/>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        <a href="${pageContext.request.contextPath}/nihao.jsp">
+        <a href="${pageContext.request.contextPath}/login">
             <form method="GET"
-                  action="${pageContext.request.contextPath}/nihao.jsp">
+                  action="${pageContext.request.contextPath}/login">
                 <input type="submit" value=" Let me in ">
             </form>
         </a>

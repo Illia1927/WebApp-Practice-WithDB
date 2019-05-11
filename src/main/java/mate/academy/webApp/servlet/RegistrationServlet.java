@@ -47,7 +47,7 @@ public class RegistrationServlet extends HttpServlet {
             }
         }
         logger.debug("Moved to 'hello page'");
-        req.getRequestDispatcher("nihao.jsp").forward(req, resp);
+        req.getRequestDispatcher("helloPage.jsp").forward(req, resp);
     }
 
     private static boolean checkEmail(String email) {

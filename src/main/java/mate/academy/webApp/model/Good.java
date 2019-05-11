@@ -1,13 +1,13 @@
 package mate.academy.webApp.model;
 
 public class Good {
-    private Long id;
+    private Long goodId;
     private String nameOfGood;
     private String discription;
     private Double price;
 
-    public Good(Long id, String nameOfGood, String discription, Double price) {
-        this.id = id;
+    public Good(Long goodId, String nameOfGood, String discription, Double price) {
+        this.goodId = goodId;
         this.nameOfGood = nameOfGood;
         this.discription = discription;
         this.price = price;
@@ -19,12 +19,12 @@ public class Good {
         this.price = price;
     }
 
-    public Long getId() {
-        return id;
+    public Long getGoodId() {
+        return goodId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setGoodId(Long goodId) {
+        this.goodId = goodId;
     }
 
     public String getNameOfGood() {
@@ -58,7 +58,7 @@ public class Good {
 
         Good good = (Good) o;
 
-        if (getId() != null ? !getId().equals(good.getId()) : good.getId() != null) return false;
+        if (getGoodId() != null ? !getGoodId().equals(good.getGoodId()) : good.getGoodId() != null) return false;
         if (getNameOfGood() != null ? !getNameOfGood().equals(good.getNameOfGood()) : good.getNameOfGood() != null)
             return false;
         if (getDiscription() != null ? !getDiscription().equals(good.getDiscription()) : good.getDiscription() != null)
@@ -69,7 +69,7 @@ public class Good {
 
     @Override
     public int hashCode() {
-        int result = getId() != null ? getId().hashCode() : 0;
+        int result = getGoodId() != null ? getGoodId().hashCode() : 0;
         result = 31 * result + (getNameOfGood() != null ? getNameOfGood().hashCode() : 0);
         result = 31 * result + (getDiscription() != null ? getDiscription().hashCode() : 0);
         result = 31 * result + (getPrice() != null ? getPrice().hashCode() : 0);
@@ -79,7 +79,7 @@ public class Good {
     @Override
     public String toString() {
         return "Good{" +
-                "id=" + id +
+                "goodId=" + goodId +
                 ", nameOfGood='" + nameOfGood + '\'' +
                 ", discription='" + discription + '\'' +
                 ", price=" + price +

@@ -22,27 +22,24 @@ public class BuyGoodServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8");
-        resp.setCharacterEncoding("UTF-8");
-        resp.setContentType("text/html");
         String codeValue = req.getParameter("code");
         if (codeDao.getCodeByValue(codeValue).isPresent()) {
-            resp.getWriter().print("payment successfully completed");
+            req.getRequestDispatcher("buyGoodConfirmation/payConfirm.jsp").forward(req, resp);
             logger.info("payment successfully");
         } else {
-            resp.getWriter().print("payment is declined");
+            req.getRequestDispatcher("buyGoodConfirmation/refusalPayConfirm.jsp").forward(req, resp);
             logger.info("payment is declined");
         }
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long goodId = Long.parseLong(req.getParameter("id"));
+        Long goodId = Long.parseLong(req.getParameter("goodId"));
         User user = (User) req.getSession().getAttribute("user");
         String randomCode = mailService.sendMailWithCode(user.getEmail());
         Code code = new Code(user.getUserId(), goodId, randomCode);
         codeDao.addCode(code);
         req.setAttribute("goodId", goodId);
-        req.getRequestDispatcher("buyConfirmation.jsp").forward(req, resp);
+        req.getRequestDispatcher("buyGoodConfirmation/buyConfirmation.jsp").forward(req, resp);
     }
 }

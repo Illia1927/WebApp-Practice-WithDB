@@ -15,6 +15,9 @@
 <div>
 <table align="center" border="2">
     <tr>
+        <td><a href="CRUD/good/addGoodPage.jsp">Add Good</a></td>
+    </tr>
+    <tr>
         <th>ID</th>
         <th>Name of good</th>
         <th>Description</th>
@@ -23,11 +26,11 @@
     </tr>
     <c:forEach items="${goods}" var="good">
         <tr>
-            <td>${good.id}</td>
+            <td>${good.goodId}</td>
             <td>${good.nameOfGood}</td>
             <td>${good.discription}</td>
             <td>${good.price}</td>
-            <td><a href='buy?id=${good.id}'>Buy</a></td>
+            <td><a href='buy?goodId=${good.goodId}'>Buy</a></td>
         </tr>
     </c:forEach>
 </table>

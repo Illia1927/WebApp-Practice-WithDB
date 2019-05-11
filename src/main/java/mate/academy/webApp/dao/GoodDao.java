@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 public interface GoodDao {
-    void addGood(Good good);
+    Long addGood(Good good);
 
     void updateGood(Long id, Good good);
 

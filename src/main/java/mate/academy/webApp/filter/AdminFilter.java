@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/addUser.jsp", "/adminPage.jsp", "/getAllUsers.jsp", "/updateUser.jsp"})
+@WebFilter(urlPatterns = {"/addUser.jsp", "/adminPage.jsp", "/getAllUsers.jsp", "/updateUser.jsp", "/CRUD/good/addGoodPage.jsp"})
 public class AdminFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) {
@@ -31,7 +31,7 @@ public class AdminFilter implements Filter {
         if (user.getRole().equals(User.ROLE.ADMIN)) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
-            request.getRequestDispatcher("accessDenied.jsp").forward(request, servletResponse);
+            request.getRequestDispatcher("errorPage/accessDenied.jsp").forward(request, servletResponse);
         }
     }
 }

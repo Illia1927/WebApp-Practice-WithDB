@@ -4,6 +4,7 @@ import mate.academy.webApp.utill.RandomHelper;
 import org.apache.log4j.Logger;
 
 import javax.mail.Message;
+import javax.mail.Authenticator;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
@@ -26,7 +27,7 @@ public class MailService {
         prop.put("mail.smtp.starttls.enable", "true");
 
         Session session = Session.getInstance(prop,
-                new javax.mail.Authenticator() {
+                new Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
                         return new PasswordAuthentication(username, password);
                     }
