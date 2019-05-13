@@ -10,20 +10,6 @@
 <html>
 <head>
     <title>GetAll</title>
-    <style>
-
-        table {
-            background: maroon;
-            color: white;
-            width: 20px;
-            height: 20px;
-        }
-        td {
-            background: navy;
-            width: 20px;
-            height: 20px;
-        }
-    </style>
 </head>
 <body style="color: blueviolet">
 <br>
