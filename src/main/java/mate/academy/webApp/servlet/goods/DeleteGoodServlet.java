@@ -1,7 +1,7 @@
 package mate.academy.webApp.servlet.goods;
 
-import mate.academy.webApp.dao.GoodDao;
-import mate.academy.webApp.dao.impl.GoodDaoImpl;
+import mate.academy.webApp.dao.hibernateDao.GoodDaoHib;
+import mate.academy.webApp.dao.hibernateDao.impl.GoodDaoHibImpl;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -14,12 +14,12 @@ import java.io.IOException;
 @WebServlet(value = "/deleteGood")
 public class DeleteGoodServlet extends HttpServlet {
     private static final Logger logger = Logger.getLogger(DeleteGoodServlet.class);
-    private static final GoodDao goodDao = new GoodDaoImpl();
+    private static final GoodDaoHib goodDao = new GoodDaoHibImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long id = Long.parseLong(req.getParameter("goodId"));
-        goodDao.deleteGoodById(id);
+        goodDao.delete(id);
         logger.info("Admin in delete page");
         req.getRequestDispatcher("admin/adminPage.jsp").forward(req, resp);
     }

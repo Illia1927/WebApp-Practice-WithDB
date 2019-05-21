@@ -1,9 +1,11 @@
 package mate.academy.webApp.servlet.users;
 
-import mate.academy.webApp.dao.UserDao;
-import mate.academy.webApp.dao.impl.UserDaoImpl;
+import mate.academy.webApp.dao.hibernateDao.RoleDaoHib;
+import mate.academy.webApp.dao.hibernateDao.UserDaoHib;
+import mate.academy.webApp.dao.hibernateDao.impl.RoleDaoHibImpl;
+import mate.academy.webApp.dao.hibernateDao.impl.UserDaoHibImpl;
+import mate.academy.webApp.model.Role;
 import mate.academy.webApp.model.User;
-import mate.academy.webApp.utill.PasswordEncoder;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -12,11 +14,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 @WebServlet(value = "/updateUser")
 public class UpdateUserServlet extends HttpServlet {
     private static final Logger logger = Logger.getLogger(UpdateUserServlet.class);
-    private static final UserDao userDao = new UserDaoImpl();
+    private static final UserDaoHib userDao = new UserDaoHibImpl();
+    private static final RoleDaoHib roleDao = new RoleDaoHibImpl();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("Admin in update user page");
@@ -24,12 +30,23 @@ public class UpdateUserServlet extends HttpServlet {
         String name = req.getParameter("name");
         String login = req.getParameter("login");
         String email = req.getParameter("email");
-        String password = req.getParameter("password");
-        String role = req.getParameter("role");
+        String user = req.getParameter("user");
+        String admin = req.getParameter("admin");
+        Role adminRoleFromDb = roleDao.getByLogin("ADMIN").get();
+        Role userRoleFromDb = roleDao.getByLogin("USER").get();
+        Set<Role> roles = new HashSet<>();
+        if (admin.isEmpty() && admin.equals(true)) {
+            roles.add(adminRoleFromDb);
+        } else {
+            roles.add(userRoleFromDb);
+        }
         logger.debug("User " + name + " entered date : " + login
                 + ", " + email +  ".");
-        userDao.updateUser(id, new User(name, login, email, password, role));
-        req.setAttribute("users", userDao.getAllUsers());
+        User userUpdate = new User(name, login, email);
+        userUpdate.setUserId(id);
+        userUpdate.setRoles(roles);
+        userDao.update(userUpdate);
+        req.setAttribute("users", userDao.getAll());
         req.getRequestDispatcher("admin/adminPage.jsp").forward(req, resp);
     }
 }

@@ -1,7 +1,7 @@
 package mate.academy.webApp.servlet.goods;
 
-import mate.academy.webApp.dao.GoodDao;
-import mate.academy.webApp.dao.impl.GoodDaoImpl;
+import mate.academy.webApp.dao.hibernateDao.GoodDaoHib;
+import mate.academy.webApp.dao.hibernateDao.impl.GoodDaoHibImpl;
 import mate.academy.webApp.model.Good;
 import org.apache.log4j.Logger;
 
@@ -15,7 +15,7 @@ import java.io.IOException;
 @WebServlet(value = "/updateGood")
 public class UpdateGoodsServlet extends HttpServlet {
     private static final Logger logger = Logger.getLogger(UpdateGoodsServlet.class);
-    private static final GoodDao goodDao = new GoodDaoImpl();
+    private static final GoodDaoHib goodDao = new GoodDaoHibImpl();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -26,7 +26,7 @@ public class UpdateGoodsServlet extends HttpServlet {
         Double price = Double.valueOf(req.getParameter("price"));
         logger.debug("New good : " + nameOfGood + ", " + description
                 + ", " + price + ".");
-        goodDao.updateGood(id, new Good(nameOfGood, description, price));
+        goodDao.update(id, new Good(nameOfGood, description, price));
         req.getRequestDispatcher("admin/adminPage.jsp").forward(req, resp);
     }
 }

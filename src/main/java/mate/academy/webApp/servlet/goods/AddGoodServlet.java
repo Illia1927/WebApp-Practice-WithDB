@@ -1,6 +1,8 @@
 package mate.academy.webApp.servlet.goods;
 
 import mate.academy.webApp.dao.GoodDao;
+import mate.academy.webApp.dao.hibernateDao.GoodDaoHib;
+import mate.academy.webApp.dao.hibernateDao.impl.GoodDaoHibImpl;
 import mate.academy.webApp.dao.impl.GoodDaoImpl;
 import mate.academy.webApp.model.Good;
 import org.apache.log4j.Logger;
@@ -14,7 +16,7 @@ import java.io.IOException;
 
 @WebServlet(value = "/getAllGood")
 public class AddGoodServlet extends HttpServlet {
-    private static final GoodDao goodDao = new GoodDaoImpl();
+    private static final GoodDaoHib goodDao = new GoodDaoHibImpl();
     private static final Logger logger = Logger.getLogger(AddGoodServlet.class);
 
     @Override
@@ -25,7 +27,7 @@ public class AddGoodServlet extends HttpServlet {
         logger.debug("Good : " + nameOfGood + ", " + description
                 + ", " + price + ".");
         Good good = new Good(nameOfGood, description, price);
-        goodDao.addGood(good);
+        goodDao.add(good);
         req.getRequestDispatcher("admin/adminPage.jsp").forward(req, resp);
     }
 

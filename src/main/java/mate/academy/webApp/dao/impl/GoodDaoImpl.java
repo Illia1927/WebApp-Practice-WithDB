@@ -19,7 +19,7 @@ public class GoodDaoImpl implements GoodDao {
 
     @Override
     public Long addGood(Good good) {
-        String ADD_GOOD = "INSERT INTO goods(name_of_good, description, price) VALUE (?, ?, ?) ";
+        String ADD_GOOD = "INSERT INTO goods(name_of_good, discription, price) VALUE (?, ?, ?) ";
         try {
             PreparedStatement statement = connection.prepareStatement(ADD_GOOD);
             statement.setString(1, good.getNameOfGood());
@@ -37,7 +37,7 @@ public class GoodDaoImpl implements GoodDao {
     @Override
     public void updateGood(Long id, Good good) {
         String UPDATE_GOOD =
-                "UPDATE goods SET name_of_good=?, description=?, price=? WHERE good_id=? ";
+                "UPDATE goods SET name_of_good=?, discription=?, price=? WHERE good_id=? ";
         try {
             PreparedStatement statement = connection.prepareStatement(UPDATE_GOOD);
             statement.setString(1, good.getNameOfGood());

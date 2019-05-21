@@ -1,9 +1,24 @@
 package mate.academy.webApp.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "code")
 public class Code {
+    @Id
+    @Column(name = "code_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codeId;
+    @Column(name = "users_id")
     private Long userId;
+    @Column(name = "goods_id")
     private Long goodId;
+    @Column
     private String value;
 
     public Code(Long codeId, Long userId, Long goodId, String value) {
@@ -17,6 +32,9 @@ public class Code {
         this.userId = userId;
         this.goodId = goodId;
         this.value = value;
+    }
+
+    public Code() {
     }
 
     public Long getCodeId() {

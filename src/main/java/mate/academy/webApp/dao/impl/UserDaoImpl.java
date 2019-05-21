@@ -4,7 +4,6 @@ import mate.academy.webApp.dao.UserDao;
 import mate.academy.webApp.model.User;
 import mate.academy.webApp.utill.ConnectionUtill;
 import mate.academy.webApp.utill.PasswordEncoder;
-import mate.academy.webApp.utill.RandomHelper;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
@@ -13,7 +12,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Optional;
+import java.util.Set;
 
 public class UserDaoImpl implements UserDao {
     private static final Connection connection = ConnectionUtill.getConnection();
@@ -28,7 +29,6 @@ public class UserDaoImpl implements UserDao {
             statement.setString(3, user.getEmail());
             statement.setString(4, PasswordEncoder.getEncodePassword(user.getPassword(), user.getSalt()));
             statement.setString(5, user.getSalt());
-            statement.setInt(6, user.getRoleIndex());
             statement.execute();
             ResultSet resultSet = statement.getGeneratedKeys();
             if (resultSet.next()) {
@@ -51,7 +51,6 @@ public class UserDaoImpl implements UserDao {
             statement.setString(2, user.getLogin());
             statement.setString(3, user.getEmail());
             statement.setString(4, user.getPassword());
-            statement.setInt(5, user.getRoleIndex());
             statement.setLong(6, id);
             statement.executeUpdate();
             logger.info("update user is done");
@@ -95,6 +94,32 @@ public class UserDaoImpl implements UserDao {
             logger.info("get user by name is done");
         } catch (SQLException e) {
             logger.error("check your sql query", e);
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<User> getUserById(Long id) {
+        String GET_USER_BY_ID = "SELECT user_id, name, login, email, password, salt, role_name " +
+                " FROM users INNER JOIN role " +
+                " on users.role = role.role_id WHERE user_id=?";
+        try {
+            PreparedStatement statement = connection.prepareStatement(GET_USER_BY_ID);
+            statement.setLong(1, id);
+            ResultSet getUserByIdResultSet = statement.executeQuery();
+            while (getUserByIdResultSet.next()) {
+                Long usersId = getUserByIdResultSet.getLong("user_id");
+                String userName = getUserByIdResultSet.getString("name");
+                String login = getUserByIdResultSet.getString("login");
+                String email = getUserByIdResultSet.getString("email");
+                String password = getUserByIdResultSet.getString("password");
+                String salt = getUserByIdResultSet.getString("salt");
+                String role = getUserByIdResultSet.getString("role_name");
+                return Optional.of(new User(usersId, userName, login, email, password, salt, role));
+            }
+            logger.info("get user by id is done");
+        } catch (SQLException e) {
+            logger.error("Check your sql query", e);
         }
         return Optional.empty();
     }
