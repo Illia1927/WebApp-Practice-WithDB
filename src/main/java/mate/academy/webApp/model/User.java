@@ -1,5 +1,7 @@
 package mate.academy.webApp.model;
 
+import mate.academy.webApp.utill.RandomHelper;
+
 public class User {
     private Long userId;
     private String name;
@@ -7,13 +9,15 @@ public class User {
     private String password;
     private String email;
     private ROLE role;
+    private String salt;
 
-    public User(Long userId, String name, String login, String password, String email, String role) {
+    public User(Long userId, String name, String login, String email, String password, String salt, String role) {
         this.userId = userId;
         this.name = name;
         this.login = login;
-        this.password = password;
         this.email = email;
+        this.password = password;
+        this.salt = salt;
         this.role = ROLE.valueOf(role);
     }
 
@@ -23,11 +27,20 @@ public class User {
         this.email = email;
         this.password = password;
         this.role = ROLE.valueOf(role);
+        this.salt = RandomHelper.getRandomSalt();
     }
 
     public int getRoleIndex() {
         int ordinal = role.ordinal();
         return ordinal++;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
     public ROLE getRole() {

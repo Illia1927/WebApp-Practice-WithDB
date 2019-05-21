@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class ConnectionUtill {
     private static final Logger logger = Logger.getLogger(ConnectionUtill.class);
-    private static final String URL = "jdbc:mysql://localhost:3306/servlet?serverTimezone=UTC";
+    private static final String URL = "jdbc:mysql://localhost:3306/test?serverTimezone=UTC";
     private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String USER = "root";
     private static final String PASSWORD = "edcwsxqaz22";
