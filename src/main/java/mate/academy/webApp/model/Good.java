@@ -14,10 +14,13 @@ public class Good {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "goods_id")
     private Long goodId;
+
     @Column(name = "name_of_good")
     private String nameOfGood;
+
     @Column
     private String discription;
+
     @Column
     private Double price;
 

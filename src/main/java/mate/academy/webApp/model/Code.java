@@ -14,10 +14,13 @@ public class Code {
     @Column(name = "code_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codeId;
+
     @Column(name = "users_id")
     private Long userId;
+
     @Column(name = "goods_id")
     private Long goodId;
+
     @Column
     private String value;
 

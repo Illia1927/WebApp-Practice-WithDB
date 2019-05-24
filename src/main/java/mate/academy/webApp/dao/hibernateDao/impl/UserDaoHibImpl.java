@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,17 +42,17 @@ public class UserDaoHibImpl implements UserDaoHib {
     }
 
     @Override
-    public Optional<User> getByLogin(String name) {
-        List<User> users;
+    public Optional<User> getByLogin(String login) {
+        List<User> users = new ArrayList<>();
         try (Session session = sessionFactory.openSession()) {
-            Query query = session.createQuery("FROM User WHERE name = :name");
-            query.setParameter("name", name);
+            Query query = session.createQuery("FROM User WHERE login = :login");
+            query.setParameter("login", login);
             users = query.list();
             if (!users.isEmpty()) {
-                LOGGER.debug("Got user with username(" + name + ") from DB");
+                LOGGER.debug("Got user with username(" + login + ") from DB");
                 return Optional.of(users.get(0));
             }
-            LOGGER.error("Can't got user with username(" + name + ") from DB");
+            LOGGER.error("Can't got user with username(" + login + ") from DB");
             return Optional.empty();
         }
     }
@@ -76,7 +77,7 @@ public class UserDaoHibImpl implements UserDaoHib {
             query.setParameter("name", user.getName());
             query.setParameter("login", user.getLogin());
             query.setParameter("email", user.getEmail());
-            query.setParameter("password", user.getEmail());
+            query.setParameter("password", user.getPassword());
             query.setParameter("userId", user.getUserId());
             int rows = query.executeUpdate();
             session.getTransaction().commit();

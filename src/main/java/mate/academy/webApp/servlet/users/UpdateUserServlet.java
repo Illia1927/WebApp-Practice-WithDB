@@ -14,9 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(value = "/updateUser")
 public class UpdateUserServlet extends HttpServlet {
@@ -34,8 +33,8 @@ public class UpdateUserServlet extends HttpServlet {
         String admin = req.getParameter("admin");
         Role adminRoleFromDb = roleDao.getByLogin("ADMIN").get();
         Role userRoleFromDb = roleDao.getByLogin("USER").get();
-        Set<Role> roles = new HashSet<>();
-        if (admin.isEmpty() && admin.equals(true)) {
+        List<Role> roles = new ArrayList<>();
+        if (admin.isEmpty() && admin.equals("true")) {
             roles.add(adminRoleFromDb);
         } else {
             roles.add(userRoleFromDb);

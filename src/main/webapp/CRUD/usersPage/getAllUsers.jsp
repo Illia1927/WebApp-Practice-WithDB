@@ -34,7 +34,7 @@
                 <td>${user.getLogin()}</td>
                 <td>${user.getEmail()}</td>
                 <td>${user.getPassword()}</td>
-                <td>${user.getRole()}</td>
+                <td>${user.getRoles()}</td>
                 <td><a href="${pageContext.request.contextPath}/deleteUser?userId=${user.getUserId()}">Delete user</a></td>
                 <td><a href="${pageContext.request.contextPath}/CRUD/usersPage/updateUser.jsp?userId=${user.getUserId()}">Update User</a></td>
             </tr>

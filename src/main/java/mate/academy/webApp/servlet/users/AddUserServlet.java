@@ -12,8 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @WebServlet(value = "/addUser")
 public class AddUserServlet extends HttpServlet {
@@ -33,7 +34,7 @@ public class AddUserServlet extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         String role = req.getParameter("role");
-        Set<Role> rolesUserSet = new HashSet<>();
+        List<Role> rolesUserSet = new ArrayList<>();
         if (role.equals("USER")) {
             Role roleUser = new Role("USER");
             rolesUserSet.add(roleUser);
