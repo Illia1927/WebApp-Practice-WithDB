@@ -1,4 +1,4 @@
-package mate.academy.webApp.dao;
+package mate.academy.webApp.dao.jdbcDao;
 
 import mate.academy.webApp.model.Code;
 

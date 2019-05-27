@@ -2,5 +2,8 @@ package mate.academy.webApp.dao.hibernateDao;
 
 import mate.academy.webApp.model.Role;
 
-public interface RoleDaoHib extends CrudDao<Role, Long> {
+import java.util.Optional;
+
+public interface RoleDaoHib extends CrudDaoHib<Role> {
+    Optional<Role> getByLogin(String name);
 }

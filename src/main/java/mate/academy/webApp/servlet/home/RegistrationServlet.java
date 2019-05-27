@@ -42,8 +42,7 @@ public class RegistrationServlet extends HttpServlet {
         User user = new User(userName, login, email, password, roleUserFromDb);
         logger.debug("User " + userName + " entered date : " + login
                 + ", " + email + ", " + PasswordEncoder.getEncodePassword(password, user.getSalt()) + ".");
-        Long id = userDao.add(user);
-        user.setUserId(id);
+        userDao.add(user);
         req.getSession().setAttribute("user", user);
         if (userDao.getByLogin(userName).equals(Optional.empty())) {
             logger.debug("User is unique, password such as entered");

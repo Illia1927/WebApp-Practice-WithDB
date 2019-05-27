@@ -26,7 +26,7 @@ public class GetAllUserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<User> users = userDao.getAll();
+        List<User> users = userDao.getAll(User.class);
         logger.info("Admin in get all page");
         req.setAttribute("users", users);
         req.getRequestDispatcher("CRUD/usersPage/getAllUsers.jsp").forward(req, resp);
