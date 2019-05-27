@@ -10,5 +10,7 @@ public interface CodeDao {
 
     Optional<Code> getCodeByValue(String value);
 
+    Optional<Code> getCodeById(Long userId, String value);
+
     void deleteCodeById(Long id);
 }

@@ -1,9 +1,9 @@
 package mate.academy.webApp.servlet.users;
 
-import mate.academy.webApp.dao.UserDao;
-import mate.academy.webApp.dao.impl.UserDaoImpl;
+import mate.academy.webApp.dao.hibernateDao.UserDaoHib;
+import mate.academy.webApp.dao.hibernateDao.impl.UserDaoHibImpl;
+import mate.academy.webApp.model.Role;
 import mate.academy.webApp.model.User;
-import mate.academy.webApp.servlet.home.RegistrationServlet;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -12,10 +12,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 @WebServlet(value = "/addUser")
 public class AddUserServlet extends HttpServlet {
-    private static final UserDao userDao = new UserDaoImpl();
+    private static final UserDaoHib userDao = new UserDaoHibImpl();
     private static final Logger logger = Logger.getLogger(AddUserServlet.class);
 
     @Override
@@ -31,8 +34,16 @@ public class AddUserServlet extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         String role = req.getParameter("role");
-        User user = new User(userName, login, email, password, role);
-        userDao.addUser(user);
+        List<Role> rolesUserSet = new ArrayList<>();
+        if (role.equals("USER")) {
+            Role roleUser = new Role("USER");
+            rolesUserSet.add(roleUser);
+        } else {
+            Role roleUser = new Role("ADMIN");
+            rolesUserSet.add(roleUser);
+        }
+        User user = new User(userName, login, email, password, rolesUserSet);
+        userDao.add(user);
         req.getRequestDispatcher("admin/adminPage.jsp").forward(req, resp);
     }
 }

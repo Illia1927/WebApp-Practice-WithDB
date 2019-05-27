@@ -1,38 +1,90 @@
 package mate.academy.webApp.model;
 
+import mate.academy.webApp.utill.PasswordEncoder;
 import mate.academy.webApp.utill.RandomHelper;
+import org.apache.log4j.Logger;
 
-public class User {
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+
+@Entity
+@Table(name = "users")
+public class User implements AutoCloseable {
+    private static final Logger LOGGER = Logger.getLogger(User.class);
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "users_id")
     private Long userId;
+
+    @Column
     private String name;
+
+    @Column
     private String login;
-    private String password;
+
+    @Column
     private String email;
-    private ROLE role;
+
+    @Column
+    private String password;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_to_role",
+            joinColumns = @JoinColumn(name = "users_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private List<Role> roles = new ArrayList<>();
+
+    @Column
     private String salt;
 
-    public User(Long userId, String name, String login, String email, String password, String salt, String role) {
-        this.userId = userId;
-        this.name = name;
-        this.login = login;
-        this.email = email;
-        this.password = password;
-        this.salt = salt;
-        this.role = ROLE.valueOf(role);
+    public User() {
     }
 
-    public User(String name, String login, String email, String password, String role) {
+    public User(String name, String login, String email) {
         this.name = name;
         this.login = login;
         this.email = email;
-        this.password = password;
-        this.role = ROLE.valueOf(role);
+    }
+
+    public User(String name, String login, String email, String password, List<Role> roles) {
+        this.name = name;
+        this.login = login;
+        this.email = email;
         this.salt = RandomHelper.getRandomSalt();
+        this.password = PasswordEncoder.getEncodePassword(password, salt);
+        this.roles = roles;
     }
 
-    public int getRoleIndex() {
-        int ordinal = role.ordinal();
-        return ordinal++;
+    public User(String name, String login, String email, String password, Role... roles) {
+        this.name = name;
+        this.login = login;
+        this.email = email;
+        this.salt = RandomHelper.getRandomSalt();
+        this.password = PasswordEncoder.getEncodePassword(password, salt);
+        this.roles.addAll(Arrays.asList(roles));
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
     public String getSalt() {
@@ -41,14 +93,6 @@ public class User {
 
     public void setSalt(String salt) {
         this.salt = salt;
-    }
-
-    public ROLE getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = ROLE.valueOf(role);
     }
 
     public Long getUserId() {
@@ -91,6 +135,30 @@ public class User {
         this.email = email;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return Objects.equals(getUserId(), user.getUserId()) &&
+                Objects.equals(getName(), user.getName()) &&
+                Objects.equals(getLogin(), user.getLogin()) &&
+                Objects.equals(getEmail(), user.getEmail()) &&
+                Objects.equals(getPassword(), user.getPassword()) &&
+                Objects.equals(getRoles(), user.getRoles()) &&
+                Objects.equals(getSalt(), user.getSalt());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getUserId(), getName(), getLogin(), getEmail(), getPassword(), getRoles(), getSalt());
+    }
+
+    @Override
+    public void close() {
+        LOGGER.debug("Closing!");
+    }
+
     public enum ROLE {
         ADMIN,
         USER
@@ -99,39 +167,11 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "users_id=" + userId +
+                "userId=" + userId +
                 ", name='" + name + '\'' +
                 ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
-
-        User user = (User) o;
-
-        if (userId != null ? !userId.equals(user.userId) : user.userId != null) return false;
-        if (getName() != null ? !getName().equals(user.getName()) : user.getName() != null) return false;
-        if (getLogin() != null ? !getLogin().equals(user.getLogin()) : user.getLogin() != null) return false;
-        if (getPassword() != null ? !getPassword().equals(user.getPassword()) : user.getPassword() != null)
-            return false;
-        if (getEmail() != null ? !getEmail().equals(user.getEmail()) : user.getEmail() != null) return false;
-        return getRole() == user.getRole();
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = userId != null ? userId.hashCode() : 0;
-        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
-        result = 31 * result + (getLogin() != null ? getLogin().hashCode() : 0);
-        result = 31 * result + (getPassword() != null ? getPassword().hashCode() : 0);
-        result = 31 * result + (getEmail() != null ? getEmail().hashCode() : 0);
-        result = 31 * result + (getRole() != null ? getRole().hashCode() : 0);
-        return result;
     }
 }

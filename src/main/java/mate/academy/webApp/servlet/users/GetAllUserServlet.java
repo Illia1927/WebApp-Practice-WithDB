@@ -1,7 +1,7 @@
 package mate.academy.webApp.servlet.users;
 
-import mate.academy.webApp.dao.UserDao;
-import mate.academy.webApp.dao.impl.UserDaoImpl;
+import mate.academy.webApp.dao.hibernateDao.UserDaoHib;
+import mate.academy.webApp.dao.hibernateDao.impl.UserDaoHibImpl;
 import mate.academy.webApp.model.User;
 import org.apache.log4j.Logger;
 
@@ -16,7 +16,7 @@ import java.util.List;
 @WebServlet("/getAll")
 public class GetAllUserServlet extends HttpServlet {
     private static final Logger logger = Logger.getLogger(GetAllUserServlet.class);
-    private static final UserDao userDao = new UserDaoImpl();
+    private static final UserDaoHib userDao = new UserDaoHibImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -26,7 +26,7 @@ public class GetAllUserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<User> users = userDao.getAllUsers();
+        List<User> users = userDao.getAll();
         logger.info("Admin in get all page");
         req.setAttribute("users", users);
         req.getRequestDispatcher("CRUD/usersPage/getAllUsers.jsp").forward(req, resp);

@@ -11,11 +11,8 @@
 <head>
     <link type="text/css" rel="stylesheet" media="screen"
           href="${pageContext.request.contextPath}/resources/styles/style.css"/>
-
     <title>Login Form</title>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
 
 </head>

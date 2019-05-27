@@ -1,9 +1,27 @@
 package mate.academy.webApp.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "goods")
 public class Good {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "goods_id")
     private Long goodId;
+
+    @Column(name = "name_of_good")
     private String nameOfGood;
+
+    @Column
     private String discription;
+
+    @Column
     private Double price;
 
     public Good(Long goodId, String nameOfGood, String discription, Double price) {
@@ -17,6 +35,9 @@ public class Good {
         this.nameOfGood = nameOfGood;
         this.discription = discription;
         this.price = price;
+    }
+
+    public Good() {
     }
 
     public Long getGoodId() {

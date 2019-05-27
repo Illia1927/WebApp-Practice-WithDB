@@ -14,9 +14,9 @@
 <body>
 
 <h2>Input the code</h2>
-<form method="POST">
+<form action="${pageContext.request.contextPath}/buy" method="POST">
     <input hidden type="text" name="goodId" value="<c:out value="${goodId}"/>">
-    <input type="password" title="сode" name="code"/>
+    <input type="password" title="code" name="code"/>
     <input type="submit" value="Send"/>
 </form>
 </body>

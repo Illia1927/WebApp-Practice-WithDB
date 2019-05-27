@@ -13,9 +13,9 @@
 <body>
 <h>payment is declined, please check your one-time code in Email</h>
 <div>
-    <a href="${pageContext.request.contextPath}/src/main/webapp/buyGoodConfirmation/buyConfirmation.jsp">
+    <a href="${pageContext.request.contextPath}/buyGoodConfirmation/buyConfirmation.jsp">
         <form method="POST"
-              action="${pageContext.request.contextPath}/src/main/webapp/buyGoodConfirmation/buyConfirmation.jsp">
+              action="${pageContext.request.contextPath}/buyGoodConfirmation/buyConfirmation.jsp">
             <input type="submit" value=" Try again ">
         </form>
     </a>

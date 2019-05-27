@@ -23,7 +23,8 @@
         <input type="text" name="login" placeholder="Login">
         <input type="text" name="email" placeholder="Email">
         <input type="password" name="password" placeholder="Password">
-        <input type="text" name="role" placeholder="Role">
+        <input type="checkbox" name="admin" value="true">Admin<br>
+        <input type="checkbox" name="user" value="true" checked>User<br>
     <input type="submit" value="Update">
 </form>
 </div>

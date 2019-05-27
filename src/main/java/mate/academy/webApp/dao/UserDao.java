@@ -14,5 +14,7 @@ public interface UserDao {
 
     Optional<User> getUserByName(String name);
 
+    Optional<User> getUserById(Long id);
+
     ArrayList<User> getAllUsers();
 }

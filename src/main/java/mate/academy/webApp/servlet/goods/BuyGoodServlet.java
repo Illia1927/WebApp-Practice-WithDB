@@ -23,8 +23,9 @@ public class BuyGoodServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        User user = (User) req.getSession().getAttribute("user");
         String codeValue = req.getParameter("code");
-        Optional<Code> optionalCode = codeDao.getCodeByValue(codeValue);
+        Optional<Code> optionalCode = codeDao.getCodeById(user.getUserId(), codeValue);
         if (optionalCode.isPresent()) {
             Code code = optionalCode.get();
             req.getRequestDispatcher("buyGoodConfirmation/payConfirm.jsp").forward(req, resp);
