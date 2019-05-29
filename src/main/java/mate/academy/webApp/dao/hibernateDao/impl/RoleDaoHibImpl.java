@@ -12,13 +12,13 @@ import java.util.List;
 import java.util.Optional;
 
 public class RoleDaoHibImpl extends CrudDaoHibImpl<Role> implements RoleDaoHib {
-    private static final SessionFactory sessionFactory = HibernateSessionFactoryUtill.getSessionFactory();
+    private static final SessionFactory SESSION_FACTORY = HibernateSessionFactoryUtill.getSessionFactory();
     private static final Logger LOGGER = Logger.getLogger(RoleDaoHibImpl.class);
 
     @Override
     public Optional<Role> getByLogin(String name) {
         List<Role> roles;
-        try (Session session = sessionFactory.openSession()) {
+        try (Session session = SESSION_FACTORY.openSession()) {
             Query query = session.createQuery("FROM Role WHERE roleName = :roleName");
             query.setParameter("roleName", name);
             roles = query.list();

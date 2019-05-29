@@ -9,11 +9,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
 public class GoodDaoHibImpl extends CrudDaoHibImpl<Good> implements GoodDaoHib {
-    private static final SessionFactory sessionFactory = HibernateSessionFactoryUtill.getSessionFactory();
+    private static final SessionFactory SESSION_FACTORY = HibernateSessionFactoryUtill.getSessionFactory();
     private static final Logger LOGGER = Logger.getLogger(GoodDaoHibImpl.class);
     @Override
     public int update(Long id, Good good) {
-        try (Session session = sessionFactory.openSession()) {
+        try (Session session = SESSION_FACTORY.openSession()) {
             session.beginTransaction();
             Query query = session.createQuery("update Good set nameOfGood = :nameOfGood," +
                     " discription = :discription, price = :price where goodId = :goodId");
@@ -34,7 +34,7 @@ public class GoodDaoHibImpl extends CrudDaoHibImpl<Good> implements GoodDaoHib {
 
     @Override
     public int delete(Long id) {
-        try (Session session = sessionFactory.openSession()) {
+        try (Session session = SESSION_FACTORY.openSession()) {
             session.beginTransaction();
             Query query = session.createQuery("delete from Good where goodId = :goodId");
             query.setParameter("goodId", id);

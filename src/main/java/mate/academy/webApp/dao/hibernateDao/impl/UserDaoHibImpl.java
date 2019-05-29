@@ -14,11 +14,11 @@ import java.util.Optional;
 
 public class UserDaoHibImpl extends CrudDaoHibImpl<User> implements UserDaoHib {
     private static final Logger LOGGER = Logger.getLogger(UserDaoHibImpl.class);
-    private static final SessionFactory sessionFactory = HibernateSessionFactoryUtill.getSessionFactory();
+    private static final SessionFactory SESSION_FACTORY = HibernateSessionFactoryUtill.getSessionFactory();
     @Override
     public Optional<User> getByLogin(String login) {
         List<User> users = new ArrayList<>();
-        try (Session session = sessionFactory.openSession()) {
+        try (Session session = SESSION_FACTORY.openSession()) {
             Query query = session.createQuery("FROM User WHERE login = :login");
             query.setParameter("login", login);
             users = query.list();
@@ -33,7 +33,7 @@ public class UserDaoHibImpl extends CrudDaoHibImpl<User> implements UserDaoHib {
 
     @Override
     public int delete(Long id) {
-        try (Session session = sessionFactory.openSession()) {
+        try (Session session = SESSION_FACTORY.openSession()) {
             session.beginTransaction();
             Query query = session.createQuery("delete from User where userId = :userId");
             query.setParameter("userId", id);
