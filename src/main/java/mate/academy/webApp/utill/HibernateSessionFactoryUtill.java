@@ -1,6 +1,7 @@
 package mate.academy.webApp.utill;
 
 import mate.academy.webApp.model.Good;
+import mate.academy.webApp.model.Order;
 import mate.academy.webApp.model.Role;
 import mate.academy.webApp.model.User;
 import org.apache.log4j.Logger;
@@ -21,6 +22,7 @@ public class HibernateSessionFactoryUtill {
                 configuration.addAnnotatedClass(User.class);
                 configuration.addAnnotatedClass(Role.class);
                 configuration.addAnnotatedClass(Good.class);
+                configuration.addAnnotatedClass(Order.class);
                 StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
                 sessionFactory = configuration.buildSessionFactory(builder.build());
 

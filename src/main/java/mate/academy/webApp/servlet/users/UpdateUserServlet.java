@@ -45,7 +45,7 @@ public class UpdateUserServlet extends HttpServlet {
         userUpdate.setUserId(id);
         userUpdate.setRoles(roles);
         userDao.update(userUpdate);
-        req.setAttribute("users", userDao.getAll());
+        req.setAttribute("users", userDao.getAll(User.class));
         req.getRequestDispatcher("admin/adminPage.jsp").forward(req, resp);
     }
 }

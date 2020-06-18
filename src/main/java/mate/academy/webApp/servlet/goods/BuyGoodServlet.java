@@ -1,7 +1,7 @@
 package mate.academy.webApp.servlet.goods;
 
-import mate.academy.webApp.dao.CodeDao;
-import mate.academy.webApp.dao.impl.CodeDaoImpl;
+import mate.academy.webApp.dao.jdbcDao.CodeDao;
+import mate.academy.webApp.dao.jdbcDao.impl.CodeDaoImpl;
 import mate.academy.webApp.model.Code;
 import mate.academy.webApp.model.User;
 import mate.academy.webApp.service.MailService;

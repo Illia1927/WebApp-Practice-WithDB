@@ -2,6 +2,7 @@ package mate.academy.webApp.servlet.goods;
 
 import mate.academy.webApp.dao.hibernateDao.GoodDaoHib;
 import mate.academy.webApp.dao.hibernateDao.impl.GoodDaoHibImpl;
+import mate.academy.webApp.model.Good;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,7 +17,7 @@ public class AllGoodsServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("goods", goodDao.getAll());
+        req.setAttribute("goods", goodDao.getAll(Good.class));
         req.getRequestDispatcher("CRUD/goodsPage/allGoodsPage.jsp").forward(req, resp);
     }
 

@@ -1,9 +1,7 @@
 package mate.academy.webApp.servlet.goods;
 
-import mate.academy.webApp.dao.GoodDao;
 import mate.academy.webApp.dao.hibernateDao.GoodDaoHib;
 import mate.academy.webApp.dao.hibernateDao.impl.GoodDaoHibImpl;
-import mate.academy.webApp.dao.impl.GoodDaoImpl;
 import mate.academy.webApp.model.Good;
 import org.apache.log4j.Logger;
 

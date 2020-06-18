@@ -1,6 +1,6 @@
-package mate.academy.webApp.dao.impl;
+package mate.academy.webApp.dao.jdbcDao.impl;
 
-import mate.academy.webApp.dao.CodeDao;
+import mate.academy.webApp.dao.jdbcDao.CodeDao;
 import mate.academy.webApp.model.Code;
 import mate.academy.webApp.utill.ConnectionUtill;
 import org.apache.log4j.Logger;

@@ -2,16 +2,21 @@ package mate.academy.webApp.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "goods")
 public class Good {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "goods_id")
     private Long goodId;
 
@@ -23,6 +28,9 @@ public class Good {
 
     @Column
     private Double price;
+
+    @ManyToMany(mappedBy = "goods", fetch = FetchType.LAZY)
+    private List<Order> orders = new ArrayList<>();
 
     public Good(Long goodId, String nameOfGood, String discription, Double price) {
         this.goodId = goodId;
@@ -38,6 +46,14 @@ public class Good {
     }
 
     public Good() {
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     public Long getGoodId() {
@@ -76,25 +92,17 @@ public class Good {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Good)) return false;
-
         Good good = (Good) o;
-
-        if (getGoodId() != null ? !getGoodId().equals(good.getGoodId()) : good.getGoodId() != null) return false;
-        if (getNameOfGood() != null ? !getNameOfGood().equals(good.getNameOfGood()) : good.getNameOfGood() != null)
-            return false;
-        if (getDiscription() != null ? !getDiscription().equals(good.getDiscription()) : good.getDiscription() != null)
-            return false;
-        return getPrice() != null ? getPrice().equals(good.getPrice()) : good.getPrice() == null;
-
+        return Objects.equals(getGoodId(), good.getGoodId()) &&
+                Objects.equals(getNameOfGood(), good.getNameOfGood()) &&
+                Objects.equals(getDiscription(), good.getDiscription()) &&
+                Objects.equals(getPrice(), good.getPrice()) &&
+                Objects.equals(getOrders(), good.getOrders());
     }
 
     @Override
     public int hashCode() {
-        int result = getGoodId() != null ? getGoodId().hashCode() : 0;
-        result = 31 * result + (getNameOfGood() != null ? getNameOfGood().hashCode() : 0);
-        result = 31 * result + (getDiscription() != null ? getDiscription().hashCode() : 0);
-        result = 31 * result + (getPrice() != null ? getPrice().hashCode() : 0);
-        return result;
+        return Objects.hash(getGoodId(), getNameOfGood(), getDiscription(), getPrice(), getOrders());
     }
 
     @Override

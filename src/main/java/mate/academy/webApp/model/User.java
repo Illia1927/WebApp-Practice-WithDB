@@ -3,6 +3,8 @@ package mate.academy.webApp.model;
 import mate.academy.webApp.utill.PasswordEncoder;
 import mate.academy.webApp.utill.RandomHelper;
 import org.apache.log4j.Logger;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,15 +45,19 @@ public class User implements AutoCloseable {
     @Column
     private String password;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_to_role",
             joinColumns = @JoinColumn(name = "users_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Role> roles = new ArrayList<>();
 
     @Column
     private String salt;
+
+    @OneToOne(mappedBy = "user")
+    private Order order;
 
     public User() {
     }
@@ -77,6 +84,14 @@ public class User implements AutoCloseable {
         this.salt = RandomHelper.getRandomSalt();
         this.password = PasswordEncoder.getEncodePassword(password, salt);
         this.roles.addAll(Arrays.asList(roles));
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public List<Role> getRoles() {
@@ -146,12 +161,13 @@ public class User implements AutoCloseable {
                 Objects.equals(getEmail(), user.getEmail()) &&
                 Objects.equals(getPassword(), user.getPassword()) &&
                 Objects.equals(getRoles(), user.getRoles()) &&
-                Objects.equals(getSalt(), user.getSalt());
+                Objects.equals(getSalt(), user.getSalt()) &&
+                Objects.equals(getOrder(), user.getOrder());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getUserId(), getName(), getLogin(), getEmail(), getPassword(), getRoles(), getSalt());
+        return Objects.hash(getUserId(), getName(), getLogin(), getEmail(), getPassword(), getRoles(), getSalt(), getOrder());
     }
 
     @Override
@@ -172,6 +188,8 @@ public class User implements AutoCloseable {
                 ", login='" + login + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", roles=" + roles +
+                ", salt='" + salt + '\'' +
                 '}';
     }
 }

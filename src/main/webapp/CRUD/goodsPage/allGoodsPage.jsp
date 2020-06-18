@@ -38,8 +38,8 @@
             <td>${good.goodId}</td>
             <td>${good.nameOfGood}</td>
             <td>${good.discription}</td>
-            <td>${good.price}</td>
-            <td><a href='buy?goodId=${good.goodId}' style="color: green">Buy</a></td>
+            <td>${good.price} UAH</td>
+            <td><a href='addToOrder?goodId=${good.goodId}' style="color: green">Add to Cart</a></td>
             <td><a href="${pageContext.request.contextPath}/deleteGood?goodId=${good.getGoodId()}">Delete good</a></td>
             <td><a href="CRUD/goodsPage/updateGoods.jsp?goodId=${good.goodId}" style="color: green">Update goods</a></td>
         </tr>
